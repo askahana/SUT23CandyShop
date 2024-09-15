@@ -6,6 +6,7 @@ namespace Test0912.Models
     public class Order
     {
         [Key]
+       
         public int OrderId { get; set; }
 
         [Required(ErrorMessage = "Please enter your first Name")]
@@ -36,6 +37,8 @@ namespace Test0912.Models
         [Display(Name = "Phone Number ")]
         [DataType(DataType.PhoneNumber)]
         public string PhonNumber { get; set; }
+
+        public List<OrderDetail> OrderDetails { get; set; }
 
         [BindNever]
         public decimal OrderTotal { get; set; }

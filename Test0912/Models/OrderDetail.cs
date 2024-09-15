@@ -2,7 +2,7 @@
 
 namespace Test0912.Models
 {
-    public class OrderDetails
+    public class OrderDetail
     {
         [Key]
         public int OrderDetailsId { get; set; }

@@ -19,13 +19,15 @@ namespace Test0912
             builder.Services.AddScoped<ICandyRepository, CandyRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ShoppingCart>(sc => ShoppingCart.GetCart(sc));
-
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddSession();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 
            
 
@@ -44,12 +46,15 @@ namespace Test0912
             app.UseSession();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }

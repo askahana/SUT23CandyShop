@@ -18,36 +18,40 @@ namespace Test0912.Controllers
 
         public IActionResult List(string category)
         {
-            var candyListViewModel = new CandyListViewModel();
-            candyListViewModel.Candies = _candyRepository.GetAllCandy;
-            candyListViewModel.CurrentCategory = "Message from controller/ See list";
-            return View(candyListViewModel);
+            //var candyListViewModel = new CandyListViewModel();
+            //candyListViewModel.Candies = _candyRepository.GetAllCandy;
+            //candyListViewModel.CurrentCategory = "Message from controller/ See list";
+            //return View(candyListViewModel);
 
-            //IEnumerable<Candy> candies;
-            //string currentCategory;
-            //// You use ViewBag to send data from controller to view.
-            //// There is ViewData also.
+            IEnumerable<Candy> candies;
+            string currentCategory;
+            // You use ViewBag to send data from controller to view.
+            // There is ViewData also.
 
-            ////ViewBag.CurrentCategory = "Bestsellers";
-            //if (string.IsNullOrEmpty(category))
-            //{
-            //    candies = _candyRepository.GetAllCandy.OrderBy(x => x.CandyId);
-            //    currentCategory = "All Candy";
-            //}
-            //else
-            //{
-            //    candies = _candyRepository.GetAllCandy
-            //        .Where(c => c.Category.CategoryName == category);
+            //ViewBag.CurrentCategory = "Bestsellers";
+            if (string.IsNullOrEmpty(category))
+            {
+                candies = _candyRepository.GetAllCandy.OrderBy(x => x.CandyId);
+                currentCategory = "All Candy";
+            }
+            else
+            {
+                candies = _candyRepository.GetAllCandy
+                    .Where(c => c.Category.CategoryName == category);
 
-            //    currentCategory = _categoryRepository.GetCategories
-            //        .FirstOrDefault(c => c.CategoryName == category)?.CategoryName;
-            //    // FirstOrDefault returns null if the item is not found.
-            //    // ?.CategoryName means, when it is not null it returns CategoryName
-            //    // if it is null, it returns null.
-            //    // This is to avoid exception
-            
-            //}
-            //return View(candies);
+                currentCategory = _categoryRepository.GetCategories
+                    .FirstOrDefault(c => c.CategoryName == category)?.CategoryName;
+                // FirstOrDefault returns null if the item is not found.
+                // ?.CategoryName means, when it is not null it returns CategoryName
+                // if it is null, it returns null.
+                // This is to avoid exception
+
+            }
+            return View(new CandyListViewModel
+            {
+                Candies = candies,
+                CurrentCategory = currentCategory
+            });
         }
 
       
