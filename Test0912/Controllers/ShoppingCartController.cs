@@ -53,6 +53,12 @@ namespace Test0912.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult ClearCart()
+        {
+            _shoppingCart.ClearCart();
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
