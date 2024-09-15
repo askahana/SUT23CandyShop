@@ -12,7 +12,7 @@ using Test0912.Data;
 namespace Test0912.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240912105631_Initial")]
+    [Migration("20240913200558_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

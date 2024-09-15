@@ -1,0 +1,11 @@
+﻿@model CandyListViewModel
+
+<div class="container">
+    <h1 class="text-danger">@Model.CurrentCategory</h1>
+    <div class="row">
+    @foreach(var candy in Model.Candies)
+    {
+        <partial name="_candyCard" model="candy"/>
+    }
+    </div>
+</div>

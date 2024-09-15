@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Test0912.Data;
+using Test0912.Services;
+using Test0912.Services.IService;
+using Microsoft.AspNetCore.Identity;
+using Test0912.Models;
 
 namespace Test0912
 {
@@ -12,9 +16,18 @@ namespace Test0912
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<ICandyRepository, CandyRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ShoppingCart>(sc => ShoppingCart.GetCart(sc));
 
-            builder.Services.AddDbContext<AppDbContext>(Options =>
-           Options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddSession();
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+           
 
             var app = builder.Build();
 
@@ -28,6 +41,7 @@ namespace Test0912
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
